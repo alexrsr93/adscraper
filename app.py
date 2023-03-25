@@ -22,9 +22,6 @@ def setup_webdriver():
     options = webdriver.ChromeOptions()
     options.binary_location = chrome_binary_path
     options.add_argument("--headless=new")
-    options.add_argument("--disable-notifications")
-    options.add_argument("--disable-infobars")
-    options.add_argument("--mute-audio")
     driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
     return driver    
 
