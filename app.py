@@ -113,26 +113,24 @@ def start_scraping(page_id):
     fileUuid = uuid.uuid4()
     string_Uuid = str(fileUuid)
     csv_file_name = string_Uuid + ".csv"
-    with open(csv_file_name, 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ['metadata', 'copy', 'creatives', 'framework']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
-        writer.writeheader()
-        for data in scraped_data:
-            writer.writerow(data)
+    # Create a DataFrame from the scraped data
+    df = pd.DataFrame(scraped_data, columns=['metadata', 'copy', 'creatives', 'framework'])
 
-        print("Data exported to " + csv_file_name)
-        st.success('Your download is ready!', icon="✅")
-        df = pd.read_csv("./" + csv_file_name.seek(0))
-        get_csv = convert_df(df)
+    # Save the DataFrame to a CSV file
+    df.to_csv(csv_file_name, index=False, encoding='utf-8')
 
-        st.download_button(
-            "Press to Download",
-            get_csv,
-            "ads.csv",
-            "text/csv",
-            key='download-csv'
-        )
+    print("Data exported to " + csv_file_name)
+    st.success('Your download is ready!', icon="✅")
+
+    # Provide the CSV file for download
+    st.download_button(
+        "Press to Download",
+        df.to_csv(index=False).encode('utf-8'),
+        "ads.csv",
+        "text/csv",
+        key='download-csv'
+    )
 
 
 def main():
