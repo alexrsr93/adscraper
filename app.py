@@ -19,6 +19,7 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 def setup_webdriver():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless=new")
+    options.add_argument('window-size=1920x1080')
     options.add_argument("--mute-audio")
     
     # Create a Chrome Service object
