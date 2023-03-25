@@ -17,17 +17,19 @@ import os
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 def setup_webdriver():
+    chrome_binary_path = os.environ.get('GOOGLE_CHROME_BIN')
+    chromedriver_path = os.environ.get('CHROMEDRIVER_PATH')
     options = webdriver.ChromeOptions()
-    options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
     options.add_argument("--headless=new")
-    options.add_argument('window-size=1920x1080')
+    options.add_argument("--disable-notifications")
+    options.add_argument("--disable-infobars")
     options.add_argument("--mute-audio")
-    options.add_argument("--disable-gpu")
-    options.add_argument("--no-sandbox")
-    
+    driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
+    return driver
+
     # Create a Chrome Service object
     
-    driver = webdriver.Chrome(executable_path= os.environ.get('CHROMEDRIVER_PATH'), options=options)
+    driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options==options)
     return driver
 
 def extract_text_recursively(element):
