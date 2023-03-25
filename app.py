@@ -26,9 +26,8 @@ def setup_webdriver():
     options.add_argument("--no-sandbox")
     
     # Create a Chrome Service object
-    service = ChromeService(executable_path=os.environ.get('CHROMEDRIVER_PATH').install())
     
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(executable_path= os.environ.get('CHROMEDRIVER_PATH'), options=options)
     return driver
 
 def extract_text_recursively(element):
