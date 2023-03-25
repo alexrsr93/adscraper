@@ -20,6 +20,7 @@ def setup_webdriver():
     chrome_binary_path = os.environ.get('GOOGLE_CHROME_BIN')
     chromedriver_path = os.environ.get('CHROMEDRIVER_PATH')
     options = webdriver.ChromeOptions()
+    options.binary_location = chrome_binary_path
     options.add_argument("--headless=new")
     options.add_argument("--disable-notifications")
     options.add_argument("--disable-infobars")
