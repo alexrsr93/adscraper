@@ -58,7 +58,6 @@ def scrape_facebook_ads_library(driver, page_list):
         try:
             WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, '_7jvw x2izyaf x1hq5gj4 x1d52u69')]")))
             ads = driver.find_elements(By.XPATH, "//div[contains(@class, '_7jvw x2izyaf x1hq5gj4 x1d52u69')]")
-            print(len(ads))
 
             for ad in ads:
                 ad_params = ['metadata', 'copy', 'creatives', 'framework']
@@ -66,16 +65,19 @@ def scrape_facebook_ads_library(driver, page_list):
 
                 metadata = extract_metadata_recursively(ad)
                 ad_data['metadata'] = metadata
-
+                print(metadata)
                 try:
                     child_element_text = extract_text_recursively(ad)
                     ad_data['copy'] = "Ad: " + child_element_text
+                    print(child_element_text)
                 except NoSuchElementException:
                     print("Error: Could not find the child element using any of the provided XPaths")
                     continue
                 
                 ad_framework = chat_gpt.analyse_copy(child_element_text)
                 ad_data['framework'] = ad_framework
+
+                print(ad_framework)
 
                 img_elements = ad.find_elements(By.XPATH, ".//img[contains(@class, 'x1ll5gia x19kjcj4 xh8yej3')]")
                 video_elements = ad.find_elements(By.XPATH, ".//video[@poster]")
