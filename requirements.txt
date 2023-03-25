@@ -2,3 +2,4 @@ streamlit
 selenium
 openai 
 python-dotenv==1.0.0
+undetected-chromedriver
