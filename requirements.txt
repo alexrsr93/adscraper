@@ -1,9 +1,4 @@
 streamlit 
-uuid
-time
-PIL
-pandas
 selenium
 openai 
-os 
 dotenv
