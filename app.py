@@ -25,12 +25,7 @@ def setup_webdriver():
     options.add_argument("--disable-infobars")
     options.add_argument("--mute-audio")
     driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
-    return driver
-
-    # Create a Chrome Service object
-    
-    driver = webdriver.Chrome(executable_path=os.environ.get('CHROMEDRIVER_PATH'), chrome_options==options)
-    return driver
+    return driver    
 
 def extract_text_recursively(element):
     child_elements = element.find_elements(By.XPATH, ".//div[contains(@class, xh8yej3)]/div/div/div[2]")
