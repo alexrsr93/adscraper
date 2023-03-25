@@ -13,11 +13,12 @@ from pprint import pprint
 
 import csv
 import chat_gpt
-
+import os 
 from selenium.webdriver.chrome.service import Service as ChromeService
 
 def setup_webdriver():
     options = webdriver.ChromeOptions()
+    options.binary_location = os.environ.get('GOOGLE_CHROME_BIN')
     options.add_argument("--headless=new")
     options.add_argument('window-size=1920x1080')
     options.add_argument("--mute-audio")
@@ -25,7 +26,7 @@ def setup_webdriver():
     options.add_argument("--no-sandbox")
     
     # Create a Chrome Service object
-    service = ChromeService(executable_path=ChromeDriverManager().install())
+    service = ChromeService(executable_path=os.environ.get('CHROMEDRIVER_PATH').install())
     
     driver = webdriver.Chrome(service=service, options=options)
     return driver
