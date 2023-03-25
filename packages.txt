@@ -1,4 +1,2 @@
-packaging
 chromium
 chromium-driver
-webdriver-manager
