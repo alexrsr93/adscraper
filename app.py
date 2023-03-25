@@ -14,11 +14,17 @@ from pprint import pprint
 import csv
 import chat_gpt
 
+from selenium.webdriver.chrome.service import Service as ChromeService
+
 def setup_webdriver():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless=new")
     options.add_argument("--mute-audio")
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=options)
+    
+    # Create a Chrome Service object
+    service = ChromeService(executable_path=ChromeDriverManager().install())
+    
+    driver = webdriver.Chrome(service=service, options=options)
     return driver
 
 def extract_text_recursively(element):
