@@ -7,23 +7,25 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from webdriver_manager.firefox import GeckoDriverManager
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException
 from pprint import pprint
+
+import csv
 import chat_gpt
 
-from selenium.webdriver.firefox.service import Service as FirefoxService
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 def setup_webdriver():
-    options = webdriver.FirefoxOptions()
-    options.add_argument("--headless")
+    options = webdriver.ChromeOptions()
+    options.add_argument("--headless=new")
     options.add_argument('window-size=1920x1080')
     options.add_argument("--mute-audio")
     
-    # Create a Firefox Service object
-    service = FirefoxService(executable_path=GeckoDriverManager().install())
+    # Create a Chrome Service object
+    service = ChromeService(executable_path=ChromeDriverManager().install())
     
-    driver = webdriver.Firefox(service=service, options=options)
+    driver = webdriver.Chrome(service=service, options=options)
     return driver
 
 def extract_text_recursively(element):
