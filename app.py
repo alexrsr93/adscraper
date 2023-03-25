@@ -21,6 +21,8 @@ def setup_webdriver():
     options.add_argument("--headless=new")
     options.add_argument('window-size=1920x1080')
     options.add_argument("--mute-audio")
+    options.addArguments("--disable-gpu");
+    options.addArguments("--no-sandbox");
     
     # Create a Chrome Service object
     service = ChromeService(executable_path=ChromeDriverManager().install())
