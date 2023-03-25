@@ -123,8 +123,7 @@ def start_scraping(page_id):
 
         print("Data exported to " + csv_file_name)
         st.success('Your download is ready!', icon="✅")
-        csv_file_name.seek(0)
-        df = pd.read_csv("./" + csv_file_name)
+        df = pd.read_csv("./" + csv_file_name.seek(0))
         get_csv = convert_df(df)
 
         st.download_button(
