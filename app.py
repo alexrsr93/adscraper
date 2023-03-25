@@ -10,8 +10,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import TimeoutException
 from pprint import pprint
-
-import csv
 import chat_gpt
 
 from selenium.webdriver.chrome.service import Service as ChromeService
