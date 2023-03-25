@@ -100,7 +100,8 @@ def scrape_facebook_ads_library(driver, page_list):
     return scraped_data
 
 def convert_df(df):
-   return df.to_csv(index=False).encode('utf-8')
+    output = df.seek(0)
+   return output.to_csv(index=False).encode('utf-8')
 
 def start_scraping(page_id):
     print(page_id)
