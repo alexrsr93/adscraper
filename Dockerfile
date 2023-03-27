@@ -1,22 +1,40 @@
-# app/Dockerfile
-
+# Use an official Python runtime as a parent image
 FROM python:3.9-slim
 
-WORKDIR /adscraper_app
+# Set the working directory to /app
+WORKDIR /app
 
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    software-properties-common \
-    git \
-    && rm -rf /var/lib/apt/lists/*
+# Copy the requirements.txt file into the container
+COPY requirements.txt /app
 
-RUN git clone https://github.com/alexrsr93/adscraper
+# Install any needed packages specified in requirements.txt
+RUN pip install --trusted-host pypi.python.org -r requirements.txt
 
-RUN pip3 install -r requirements.txt
+# Copy the rest of the application code
+COPY . /app
 
-EXPOSE 8501
+# Install Google Chrome
+RUN apt-get update && \
+    apt-get install -y wget gnupg2 && \
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
+    echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' > /etc/apt/sources.list.d/google.list && \
+    apt-get update && \
+    apt-get install -y google-chrome-stable
 
-HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+# Install Chromium WebDriver
+RUN apt-get update && \
+    apt-get install -yqq unzip && \
+    wget -O /tmp/chromedriver.zip http://chromedriver.storage.googleapis.com/`curl -sS chromedriver.storage.googleapis.com/LATEST_RELEASE`/chromedriver_linux64.zip && \
+    unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 
-ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
+# Set display port to avoid crash
+ENV DISPLAY=:99
+
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
+
+# Define environment variable
+ENV NAME World
+
+# Run app.py when the container launches
+CMD ["streamlit", "run", "app.py", "--server.port", "8080", "--server.enableCORS", "false"]
