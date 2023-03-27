@@ -21,9 +21,9 @@ def setup_webdriver():
     s_path = os.environ.get('CHROMEDRIVER_PATH')
     options = webdriver.ChromeOptions()
     options.binary_location = chrome_binary_path
-    options.addArguments("--headless");
-    options.addArguments("--no-sandbox");
-    options.addArguments("--disable-gpu");
+    options.add_argument("--headless");
+    options.add_argument("--no-sandbox");
+    options.add_argument("--disable-gpu");
     # Create a Chrome Service object
     service = ChromeService(executable_path=s_path)
 
