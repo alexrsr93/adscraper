@@ -21,7 +21,7 @@ def setup_webdriver():
     s_path = os.environ.get('CHROMEDRIVER_PATH')
     options = webdriver.ChromeOptions()
     options.binary_location = chrome_binary_path
-    options.add_argument("--headless");
+    options.add_argument("--headless=new");
     options.add_argument("--no-sandbox");
     options.add_argument("--disable-gpu");
     # Create a Chrome Service object
@@ -46,7 +46,7 @@ def extract_metadata_recursively(element):
 def scrape_facebook_ads_library(driver, page_list):
     base_url = "https://www.facebook.com/ads/library/?active_status=all&ad_type=all&country=ALL&view_all_page_id="
     scraped_data = []
-
+    print(base_url)
     for page_id in page_list:
         driver.get(base_url + page_id)
         SCROLL_PAUSE_TIME = 30
@@ -65,7 +65,7 @@ def scrape_facebook_ads_library(driver, page_list):
             last_height = new_height
 
         try:
-            WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, '_7jvw x2izyaf x1hq5gj4 x1d52u69')]")))
+            WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.XPATH, "//div[contains(@class, '_7jvw x2izyaf x1hq5gj4 x1d52u69')]")))
             ads = driver.find_elements(By.XPATH, "//div[contains(@class, '_7jvw x2izyaf x1hq5gj4 x1d52u69')]")
 
             for ad in ads:
