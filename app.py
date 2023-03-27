@@ -18,11 +18,11 @@ from selenium.webdriver.chrome.service import Service as ChromeService
 
 def setup_webdriver():
     chrome_binary_path = os.environ.get('GOOGLE_CHROME_BIN')
-    chromedriver_path = os.environ.get('CHROMEDRIVER_PATH')
+    s_path = os.environ.get('CHROMEDRIVER_PATH')
     options = webdriver.ChromeOptions()
     options.binary_location = chrome_binary_path
     options.add_argument("--headless=new")
-    driver = webdriver.Chrome(executable_path=chromedriver_path, options=options)
+    driver = webdriver.Chrome(service=s_path, options=options)
     return driver    
 
 def extract_text_recursively(element):
