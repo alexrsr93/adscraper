@@ -22,7 +22,10 @@ def setup_webdriver():
     options = webdriver.ChromeOptions()
     options.binary_location = chrome_binary_path
     options.add_argument("--headless=new")
-    driver = webdriver.Chrome(service=s_path, options=options)
+    # Create a Chrome Service object
+    service = ChromeService(executable_path=s_path)
+
+    driver = webdriver.Chrome(service=service, options=options)
     return driver    
 
 def extract_text_recursively(element):
